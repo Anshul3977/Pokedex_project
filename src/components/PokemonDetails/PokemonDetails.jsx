@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import './PokemonDetails.css'
-
+import usePokemonList from "../hooks/usePokemonList";
 function PokemonDetails(){
     const{id} = useParams();
     const [pokemon,setPokemon] = useState({});
@@ -16,8 +16,10 @@ function PokemonDetails(){
             types: response.data.types.map((t) => t.type.name)
          })
     }
+    const {pokemonListState,setPokemonListState}= usePokemonList('https://pokeapi.co/api/v2/type/fire',true)
     useEffect(() =>{
         downloadPokemon();
+        console.log("list",pokemonListState)
     },[])
     return (
         <div className="pokemon-details-wrapper">
